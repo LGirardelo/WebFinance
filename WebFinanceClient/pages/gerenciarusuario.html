@@ -1,4 +1,107 @@
-<div class="jumbotron text-center">
-  <h1>Cadastro Usuario</h1>
-  <p></p>
-</div>
+<section class="content">
+  <div class="row">
+    <div class="col-md-6">
+	    <div class="box box-primary">
+	        <div class="box-header with-border">
+	          <h3 class="box-title">Usuário</h3>
+	          <div class="box-tools pull-right">
+	            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+	            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+	          </div>
+	        </div>
+	        <!-- /.box-header -->
+	        <div class="box-body">
+	           <form role="form">           
+	           <div class="row">
+		          <div class="col-md-6">		      		     
+		              <div class="box-body">
+		                <div class="form-group">
+			                <label for="input-nome">Nome</label>
+			                <input type="text" ng-model="usuario.usu_nome" class="form-control" id="userInputNome" placeholder="Informe nome do usuário">
+			            </div>
+			            <div class="form-group">
+			                <label for="input-email">Email</label>
+			                <input type="email" ng-model="usuario.usu_email" class="form-control" id="userInputEmail" placeholder="Informe o email">
+			            </div>
+			            <div class="form-group">
+		                     <div class="checkbox">
+		                       <label>
+		                         <input ng-model="usuario.usu_ativo" type="checkbox"> Ativo
+		                       </label>
+		                     </div>
+		                </div>
+			          </div>		            		        
+		          </div>
+		            <!-- /.col -->
+
+		          <div class="col-md-6">		      		     
+		              <div class="box-body">		                    
+			            
+			            <div class="form-group">
+			                <label for="input-usuario">Usuário</label>
+			                <input type="text" ng-model="usuario.usu_login" class="form-control" id="userUsuario" placeholder="Informe o usuário">
+			            </div>
+			            <div class="form-group">
+			                <label for="input-senha1">Senha</label>
+			                <input type="password" ng-model="usuario.usu_senha" class="form-control" id="userSenha1" placeholder="Informe a senha">
+			            </div>
+
+			            <div class="form-group">
+			                <label for="input-senha2">Repetir senha</label>
+			                <input type="password" class="form-control" id="userSenha2" placeholder="Informe novamente a senha">
+			            </div>
+			          </div>		            		        
+		          </div>
+		          <!-- /.col-->		           
+		      </div>
+		          <!-- /.row -->
+		    </div>	
+		    </form>        
+		        <!-- /.box-body -->	        
+	        <div class="box-footer">
+                <button type="submit" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-success pull-right">Salvar</button>                           
+	        </div>
+	      </div>
+	      <!-- /.box -->
+	   </div>
+	   <div class="col-md-6">
+	   	   <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Usuários Cadastrados</h3>
+              <div class="box-tools pull-right">
+	            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+	            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+	          </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Login</th>
+                  <th>Email</th>
+                  <th>Ativo</th>
+                  <th>#</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in usuarios">
+                  <td>{{x.usu_nome}}</td>
+                  <td>{{x.usu_login}}</td>
+                  <td>{{x.usu_email}}</td>
+                  <td>{{x.usu_ativo}}</td>
+                  <td>
+					<button ng-click="editarUsuario(x)" type="button" class="btn btn-default btn-sm">
+					    <span class="glyphicon glyphicon-edit"></span>
+				    </button>
+                  	
+                </tr>
+                </tbody>
+              </table>
+             </div>
+         </div>
+	   </div>
+    </div>	      
+</section> 

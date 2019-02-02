@@ -28,6 +28,7 @@ require __DIR__ . '/../src/middleware.php';
 
 // Autentication 
 require __DIR__ . '/../src/autentication/autentication.php';
+require __DIR__ . '/../src/modulos/usuarios.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';

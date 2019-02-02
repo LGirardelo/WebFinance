@@ -1,12 +1,11 @@
 
 var app = angular.module('AppFinance', ['ngRoute']);
 
-
 app.config(function($routeProvider){
   $routeProvider
     .when('/gerusuario', {
       templateUrl : '/WebFinanceClient/pages/gerenciarusuario.html',
-      controller  : 'controlador'
+      controller  : 'usuarioController'
     })
     .when('/gerconta', {
       templateUrl : '/WebFinanceClient/pages/gerenciarconta.html',
@@ -53,12 +52,4 @@ function controlador($scope, $http) {
 			          alert('Usuário ou senha não informados');			    
 			    });
 		};
-		
-		/*$scope.freight_calculate = function(){
-			$http
-				.get("http://localhost:8080/WebFinanceApiRest/public/hello")
-				.success(function(retorno){
-				    alert(retorno);
-				});
-		};*/
 };

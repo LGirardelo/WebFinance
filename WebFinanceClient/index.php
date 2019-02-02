@@ -454,6 +454,8 @@
 <script type="text/javascript" src="assets/js/angular.min.js"></script>
 <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="controllers/usuarioController.js"></script>
+
 
 <script>
   $('.main-sidebar li').click(function() {

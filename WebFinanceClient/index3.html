@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AppFinance" ng-controller="controlador">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+  <meta charset="utf-8">
+  <title>Cliente</title>
+  <link rel="icon" type="image/jpg" href="assets/img/favicon.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="assets/css/bootstrap.css" rel="stylesheet"> 
+  <!--[if lt IE 9]>
+  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>1 - Autenticação de Usuário</h3>
+        <form>
+          <div class="row">
+            <div class="col-xs-12 col-sm-4">
+              <div class="form-group">
+                <label class="form-group">Usuario</label>
+                <input type="string" class="form-control" ng-model="login.user"></input>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <div class="form-group">
+                <label class="form-group">Senha</label>
+                <input type="password" class="form-control" ng-model="login.password"></input>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-square btn-primary" ng-click="autenticacao()">Autenticar</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>2 - Calcula o frete e o tempo estimado</h3>
+        <form>
+          <div class="row">
+            <div class="col-xs-12 col-sm-2">
+              <div class="form-group">
+                <label class="form-group">UF Origem</label>
+                <input type="string" class="form-control" ng-model="freight_calc.uforigem"></input>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <div class="form-group">
+                <label class="form-group">UF Destino</label>
+                <input type="string" class="form-control" ng-model="freight_calc.ufdestino"></input>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <div class="form-group">
+                <label class="form-group">Peso do produto</label>
+                <input type="string" class="form-control" ng-model="freight_calc.produtopeso"></input>
+              </div>
+            </div>            
+            
+          </div>
+          <div ng-if="retorno_freight_calc.valor != ''" class='row'>
+            <div   class="col-xs-12 col-sm-6 jumbotron">
+              <p><stong>Tempo de Entrega:</stong> {{retorno_freight_calc.tempo_de_entrega}} dias</p>
+              <p><stong>Valor KG:</stong> {{retorno_freight_calc.valor_por_kilo}}</p>
+              <p><stong>Valor Total R$:</stong> {{retorno_freight_calc.valor}}</p>              
+            </div>
+          </div>
+          <button class="btn btn-square btn-primary" ng-click="freight_calculate()">Calcular frete</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>3 - Pedido do frete</h3>
+        <form>
+          <div class="row">
+            <div class="col-xs-12 col-sm-2">
+              <div class="form-group">
+                <label class="form-group">UF Origem</label>
+                <input type="string" class="form-control" ng-model="freight_order_.uforigem"></input>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <div class="form-group">
+                <label class="form-group">UF Destino</label>
+                <input type="string" class="form-control" ng-model="freight_order_.ufdestino"></input>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+              <div class="form-group">
+                <label class="form-group">UF Numero Pedido</label>
+                <input type="string" class="form-control" ng-model="freight_order_.numeropedido"></input>
+              </div>
+            </div>
+          </div>
+          <div ng-if="freight_order_rastreio != ''" class='row'>
+            <div   class="col-xs-12 col-sm-6 jumbotron">
+              <p><stong>Pedido registrado com sucesso, código de rastreio:</stong> {{freight_order_rastreio}} </p>              
+            </div>
+          </div>
+          <button class="btn btn-square btn-primary" ng-click="freight_order()">Registrar Pedido</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>4 - Lista de Frete Pendentes</h3>
+        <form>
+          <div class="row">
+            <div class="col-xs-12 col-sm-4">
+              <div class="form-group">
+                <label class="form-group">UF Origem</label>
+                <input type="string" class="form-control" ng-model="freight_order_pending_.uforigem"></input>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-4">
+              <div class="form-group">
+                <label class="form-group">UF Destino</label>
+                <input type="string" class="form-control" ng-model="freight_order_pending_.ufdestino"></input>
+              </div>
+            </div>
+          </div>
+          <div class='row'>
+            <div   class="col-xs-12 col-sm-6 ">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Nº Pedido</th>
+                        <th>UF Origem</th>
+                        <th>UF Destino</th>                       
+                        <th>Código Rastreio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in freight_pendings">
+                        <td>{{x.numero_pedido}}</td>
+                        <td>{{x.uf_origem}}</td>
+                        <td>{{x.uf_destino}}</td>
+                        <td>{{x.codigo_rastreio}}</td>
+                        <td><button class="btn btn-success" ng-click="freight_truck(x)">Carregar caminhão</button></td>
+                      </tr>
+                    </tbody>
+                  </table>              
+            </div>
+          </div>
+          <button class="btn btn-square btn-primary" ng-click="freight_order_pending()">Consultar</button>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+
+  <script type="text/javascript" src="assets/js/jquery.js"></script>
+  <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+  <script type="text/javascript" src="assets/js/angular.min.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+</html>

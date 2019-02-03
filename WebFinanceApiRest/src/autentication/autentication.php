@@ -20,7 +20,7 @@ $app->get('/naoautenticado', function () {
     echo "Usuário não autenticado!";
 });
 
-$app->post('/auth',function (Request $request, Response $response, array $args) {
+$app->post('/auth', function (Request $request, Response $response, array $args) {
         
     $dados = $request->getBody();
     $dados = json_decode($dados);

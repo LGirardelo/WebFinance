@@ -35,6 +35,8 @@
   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -152,6 +154,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
+            <li><a href="#/gergrupofamiliar"><i class="fa fa-circle-o"></i> Grupo Familiar</a></li>
             <li><a href="#/gerusuario"><i class="fa fa-circle-o"></i> Usuários</a></li>
             <li><a href="#/gerconta"><i class="fa fa-circle-o"></i> Contas</a></li>
             <li><a href="#/gercategoria"><i class="fa fa-circle-o"></i> Categorias</a></li>
@@ -194,20 +197,26 @@
     <section class="content-header">
       <h1>
         Gerenciador Financeiro
-        <small>Painel de controle</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>        
       </ol>
     </section>
+    
+  
+    <div ng-view></div>  
 
-    <!-- Main content -->
-
-    <div ng-view></div>
+    <div class="content" style="position: fixed; z-index: 199; margin-bottom: 10px;"> 
+        <div id="alert-type" class="alert alert-dismissible"  style="display: none;">
+              <button class="close" onClick="ocultarElementoMensagem()" aria-hidden="true">&times;</button>
+              <h4><i class="icon fa fa-check"></i> Atenção!</h4>
+              <div id="alert-msg-user"></div> 
+        </div>      
+    </div>
 
     <!-- /.content -->
   </div>
-  
+
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -455,6 +464,7 @@
 <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="controllers/usuarioController.js"></script>
+<script type="text/javascript" src="controllers/grupoFamiliarController.js"></script>
 
 
 <script>

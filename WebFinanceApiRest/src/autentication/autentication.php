@@ -10,7 +10,7 @@ function autentication() {
    
         header('Location: /WebFinanceApiRest/public/naoautenticado');   
         exit;
-   
+
     } else {
         return true;
     }
@@ -26,16 +26,18 @@ $app->post('/auth', function (Request $request, Response $response, array $args)
     $dados = json_decode($dados);
 
     if ($dados->user && $dados->password){ 
-              
+
+        $passCript = hash('sha256', $dados->password);
+        
         $sql = 'select * from usuarios where usu_login = :user and usu_senha = :password';        
 		
         $qry = $this->db->prepare($sql);  
 		
         $qry->bindParam(':user', $dados->user, PDO::PARAM_STR);
-        $qry->bindParam(':password', $dados->password, PDO::PARAM_STR);                
+        $qry->bindParam(':password', $passCript, PDO::PARAM_STR);                
 
         if ($qry->execute()){
-        
+
             if($qry->rowCount() > 0){                
                    
                 session_start();
@@ -47,7 +49,7 @@ $app->post('/auth', function (Request $request, Response $response, array $args)
                 }
 
                 $_SESSION['user'] = $dados->user;
-                $_SESSION['password'] = $dados->password;                
+                $_SESSION['password'] = $passCript;                
         
                 echo 2;                    
         

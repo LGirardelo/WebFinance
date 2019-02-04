@@ -1,0 +1,81 @@
+<section class="content">
+  <div class="row">
+    <div class="col-md-5">
+	    <div class="box box-primary">
+	        <div class="box-header with-border">
+	          <h3 class="box-title">Tipo de Conta</h3>
+	          <div class="box-tools pull-right">
+	            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+	            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+	          </div>
+	        </div>
+	        <!-- /.box-header -->
+	        <div class="box-body">
+	           <div >
+		         <button ng-click="novoTipoConta()" type="button" class="btn btn-primary btn-sm">Novo tipo</button>	
+               </div>        		         
+	           <form role="form">       	
+	            <div class="row">	        	              		          
+		          <div class="col-md-12">		      		     
+		              <div class="box-body">		                    			            
+			            <div class="form-group">
+			                <label for="input-descricao">Descrição</label>
+			                <input type="text" ng-model="tipoconta.tco_descricao" class="form-control" id="tipoContaDescricao" placeholder="Informe a descrição do tipo">
+			            </div>
+			          </div>		            		        
+		          </div>
+		          <!-- /.col-->		           
+		        </div>
+		          <!-- /.row -->
+		      </form> 
+		    </div>			           
+		        <!-- /.box-body -->	        
+	        <div class="box-footer">
+                <button ng-click="novoTipoConta()" class="btn btn-default">Cancel</button>
+                <button ng-click="salvarTipoConta()" class="btn btn-success pull-right">Salvar</button>                           
+	        </div>
+	      </div>
+	      <!-- /.box -->
+	   </div>
+	   <div class="col-md-7">
+	   	   <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Tipos Cadastrados</h3>
+              <div class="box-tools pull-right">
+	            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+	            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+	          </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Descrição</th>
+                  <th>#</th>
+                  <th>#</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in tiposContas">
+                  <td>{{x.tco_codigo}}</td>
+                  <td>{{x.tco_descricao}}</td>
+                  <td>
+					<button ng-click="editarTipoConta(x)" type="button" class="btn btn-primary btn-xs">
+					    <span class="glyphicon glyphicon-edit"></span>
+				    </button>
+				  </td>
+				  <td>
+				    <button ng-click="excluirTipoConta(x)" type="button" class="btn btn-danger btn-xs">
+					    <span class="glyphicon glyphicon-trash"></span>
+				    </button>                  	                  	
+				  </td>  
+                </tr>
+                </tbody>
+              </table>
+             </div>
+         </div>
+	   </div>
+    </div>	      
+</section> 

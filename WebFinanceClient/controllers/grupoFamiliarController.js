@@ -12,7 +12,7 @@ function grupoFamiliarController($scope, $http) {
 	
 	$scope.carregarGruposFamiliares = function(){
 		$http
-			.get("http://localhost:8080/WebFinanceApiRest/public/gruposFamiliares")
+			.get(getServerAddress()+"/WebFinanceApiRest/public/gruposFamiliares")
 			.success(function(retorno){
 		       console.log(retorno);
 		       $scope.gruposFamiliares = retorno;			     
@@ -34,7 +34,7 @@ function grupoFamiliarController($scope, $http) {
 	};
 
 	$scope.salvarGrupoFamiliar = function(){
-		$http.post("http://localhost:8080/WebFinanceApiRest/public/grupoFamiliar/salvar", $scope.grupofamiliar)
+		$http.post(getServerAddress()+"/WebFinanceApiRest/public/grupoFamiliar/salvar", $scope.grupofamiliar)
 		   	 .success(function(retorno){           
                 if(retorno == 1){
                   $scope.limparGrupoFamiliar(); 	 
@@ -52,7 +52,7 @@ function grupoFamiliarController($scope, $http) {
 
 	$scope.excluirGrupoFamiliar = function($grupo){
 		$http
-		 .post("http://localhost:8080/WebFinanceApiRest/public/grupoFamiliar/excluir", $grupo)
+		 .post(getServerAddress()+"/WebFinanceApiRest/public/grupoFamiliar/excluir", $grupo)
 		 .success(function(retorno){           
             if(retorno == 1){
               $scope.limparGrupoFamiliar(); 	 

@@ -19,32 +19,34 @@ app.config(function($routeProvider){
       templateUrl : '/WebFinanceClient/pages/dashboardmensal.html',
       controller  : 'controlador'
     })
+    .when('/gertipoconta', {
+      templateUrl : '/WebFinanceClient/pages/gerenciartipoconta.html',
+      controller  : 'tipoContaController'
+    })
     .when('/', {
       templateUrl : '/WebFinanceClient/pages/dashboardinicial.html',
       controller  :	'controlador' 
-    })
-    .otherwise('/');    
+    });    
 });
 
 app.controller('controlador', controlador);
 
 function controlador($scope, $http) {
-	    $scope.message = 'msg';
+	  $scope.message = 'msg';
 
 		$scope.login = {
 		  user: '',
 		  password: ''
 		}		
 	
-		$scope.autenticacao = function(){
+		$scope.autenticacao = function(){         
 			$http
-				.post("http://localhost:8080/WebFinanceApiRest/public/auth", $scope.login)
+				.post(getServerAddress()+"/WebFinanceApiRest/public/auth", $scope.login)
 				.success(function(retorno){
-			        if(retorno == '2'){
-			          alert('Usuário autenticado com sucesso');
+			        if(retorno == '2'){			 
 			          $scope.login.user='';
 			          $scope.login.password=''; 
-			          window.location.replace("/WebFinanceClient/");
+			          window.location.replace("/WebFinanceClient/");                
 			        }
 			        else if(retorno == '1')
 			          alert('Usuário ou senha inválidos');
@@ -88,3 +90,7 @@ function exibirOcultarElementoMensagem(msg, option, ehErro) {
   }, segundos * 1000);  
     
 };
+
+function getServerAddress(){
+  return 'http://192.168.0.113:8080';
+}

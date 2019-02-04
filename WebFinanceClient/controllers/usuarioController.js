@@ -22,7 +22,7 @@ function usuarioController($scope, $http) {
 
 	$scope.carregarGruposFamiliares = function(){
 		$http
-			.get("http://localhost:8080/WebFinanceApiRest/public/gruposFamiliares")
+			.get(getServerAddress()+"/WebFinanceApiRest/public/gruposFamiliares")
 			.success(function(retorno){
 		       console.log(retorno);
 		       $scope.gruposFamiliares = retorno;			     
@@ -31,7 +31,7 @@ function usuarioController($scope, $http) {
 	
 	$scope.carregarUsuarios = function(){
 		$http
-			.get("http://localhost:8080/WebFinanceApiRest/public/usuarios")
+			.get(getServerAddress()+"/WebFinanceApiRest/public/usuarios")
 			.success(function(retorno){
 		       console.log(retorno);
 		       $scope.usuarios = retorno;			     
@@ -65,11 +65,11 @@ function usuarioController($scope, $http) {
 	};
 
 	$scope.salvarUsuario = function(){
-		if (($scope.usuario.usu_senha2 != $scope.usuario.usu_senha) && ($scope.usuario.usu_senha == ''))
-			exibirOcultarElementoMensagem('alert-user', 'As senhas devem ser informadas e devem ser iguais!', true, true);
+		if (($scope.usuario.usu_senha2 != $scope.usuario.usu_senha) || ($scope.usuario.usu_senha == ''))
+			exibirOcultarElementoMensagem('As senhas devem ser informadas e devem ser iguais!', true, true);
 		else
   			$http
-		   	 .post("http://localhost:8080/WebFinanceApiRest/public/usuario/salvar", $scope.usuario)
+		   	 .post(getServerAddress()+"/WebFinanceApiRest/public/usuario/salvar", $scope.usuario)
 		   	 .success(function(retorno){           
                 if(retorno == 1){
                   $scope.limparUsuario(); 	 
@@ -87,7 +87,7 @@ function usuarioController($scope, $http) {
 
 	$scope.excluirUsuario = function($user){
 		$http
-		 .post("http://localhost:8080/WebFinanceApiRest/public/usuario/excluir", $user)
+		 .post(getServerAddress()+"/WebFinanceApiRest/public/usuario/excluir", $user)
 		 .success(function(retorno){           
             if(retorno == 1){
               $scope.limparUsuario(); 	 

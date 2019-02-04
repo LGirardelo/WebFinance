@@ -24,6 +24,8 @@ $app->post('/usuario/salvar', function (Request $request, Response $response, ar
     $dados = $request->getBody();
     $dados = json_decode($dados);
 
+    $passwdEncript = hash('sha256', $dados->usu_senha);
+    
     if ($dados->usu_codigo > 0) {
 
    		$sql = 'update usuarios set
@@ -41,7 +43,7 @@ $app->post('/usuario/salvar', function (Request $request, Response $response, ar
       $qry->bindParam(':usu_nome', $dados->usu_nome, PDO::PARAM_STR);
       $qry->bindParam(':usu_email', $dados->usu_email, PDO::PARAM_STR);
       $qry->bindParam(':usu_ativo', $dados->usu_ativo, PDO::PARAM_BOOL);       
-      $qry->bindParam(':usu_senha', $dados->usu_senha, PDO::PARAM_STR);       
+      $qry->bindParam(':usu_senha', $passwdEncript, PDO::PARAM_STR);       
       $qry->bindParam(':usu_codigo', $dados->usu_codigo, PDO::PARAM_STR);       
       $qry->bindParam(':gfa_codigo', $dados->gfa_codigo, PDO::PARAM_STR);       
 
@@ -56,7 +58,7 @@ $app->post('/usuario/salvar', function (Request $request, Response $response, ar
       $qry->bindParam(':usu_nome', $dados->usu_nome, PDO::PARAM_STR);
       $qry->bindParam(':usu_email', $dados->usu_email, PDO::PARAM_STR);
       $qry->bindParam(':usu_ativo', $dados->usu_ativo, PDO::PARAM_BOOL);       
-      $qry->bindParam(':usu_senha', $dados->usu_senha, PDO::PARAM_STR);               
+      $qry->bindParam(':usu_senha', $passwdEncript, PDO::PARAM_STR);               
       $qry->bindParam(':gfa_codigo', $dados->gfa_codigo, PDO::PARAM_STR);               
     }
     

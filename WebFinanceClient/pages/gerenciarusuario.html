@@ -31,11 +31,11 @@
 			                <select id="select-grupofamiliar" ng-model="usuario.gfa_codigo" class="form-control select2" style="width: 100%;">
 			                  <option ng-selected="usuario.gfa_codigo" ng-repeat="grupo in gruposFamiliares" value="{{grupo.gfa_codigo}}">{{grupo.gfa_descricao}}</option>			                  
 			                </select>
-			            </div>			            			            
+			            </div>		            		
 			            <div class="form-group">
 		                     <div class="checkbox">
 		                       <label>
-		                         <input ng-model="usuario.usu_ativo" type="checkbox"> Ativo
+		                         <input ng-model="usuario.usu_ativo" type="checkbox" class="minimal"> Ativo
 		                       </label>
 		                     </div>
 		                </div>
@@ -59,6 +59,7 @@
 			                <label for="input-senha2">Repetir senha</label>
 			                <input type="password" ng-model="usuario.usu_senha2" class="form-control" id="userSenha2" placeholder="Informe novamente a senha">
 			            </div>
+			            
 			          </div>		            		        
 		          </div>
 		          <!-- /.col-->		           

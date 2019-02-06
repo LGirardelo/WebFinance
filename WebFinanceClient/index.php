@@ -26,9 +26,9 @@
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
   <!-- Morris chart -->
-  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+  <!--<link rel="stylesheet" href="bower_components/morris.js/morris.css">-->
   <!-- jvectormap -->
-  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <!--<link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">-->
   <!-- Date Picker -->
   <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <!-- Daterange picker -->
@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
+
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -155,9 +156,9 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="#/gergrupofamiliar"><i class="fa fa-circle-o"></i> Grupo Familiar</a></li>
-            <li><a href="#/gerusuario"><i class="fa fa-circle-o"></i> Usuários</a></li>
-            <li><a href="#/gertipoconta"><i class="fa fa-circle-o"></i> Tipos de Contas</a></li>
-            <li><a href="#/gerconta"><i class="fa fa-circle-o"></i> Contas</a></li>
+            <li><a href="#/gerusuario"><i class="fa fa-circle-o"></i> Usuário</a></li>
+            <li><a href="#/gertipoconta"><i class="fa fa-circle-o"></i> Tipo de Conta</a></li>
+            <li><a href="#/gerconta"><i class="fa fa-circle-o"></i> Conta</a></li>
           </ul>
         </li>        
         <li class="treeview">
@@ -260,12 +261,13 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="bower_components/raphael/raphael.min.js"></script>
-<script src="bower_components/morris.js/morris.min.js"></script>
+<!--<script src="bower_components/morris.js/morris.min.js"></script>-->
 <!-- Sparkline -->
 <script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->
-<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+<!--<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+
+<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>-->
 <!-- jQuery Knob Chart -->
 <script src="bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -279,10 +281,11 @@
 <script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
+
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard.js"></script>
+<!--<script src="dist/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 
@@ -292,6 +295,7 @@
 <script type="text/javascript" src="controllers/usuarioController.js"></script>
 <script type="text/javascript" src="controllers/grupoFamiliarController.js"></script>
 <script type="text/javascript" src="controllers/tipoContaController.js"></script>
+<script type="text/javascript" src="controllers/contaController.js"></script>
 
 
 <script>

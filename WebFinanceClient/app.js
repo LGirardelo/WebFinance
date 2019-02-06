@@ -9,7 +9,7 @@ app.config(function($routeProvider){
     })
     .when('/gerconta', {
       templateUrl : '/WebFinanceClient/pages/gerenciarconta.html',
-      controller  : 'controlador'
+      controller  : 'contaController'
     })
     .when('/gergrupofamiliar', {
       templateUrl : '/WebFinanceClient/pages/gerenciargrupofamiliar.html',

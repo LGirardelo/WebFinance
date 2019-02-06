@@ -33,6 +33,7 @@ require __DIR__ . '/../src/autentication/autentication.php';
 require __DIR__ . '/../src/modulos/usuarios.php';
 require __DIR__ . '/../src/modulos/grupoFamiliar.php';
 require __DIR__ . '/../src/modulos/tipoConta.php';
+require __DIR__ . '/../src/modulos/conta.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';

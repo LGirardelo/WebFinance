@@ -14,7 +14,7 @@ function autentication() {
     } else {
         return true;
     }
-}
+};
 
 $app->get('/naoautenticado', function () {
     echo "Usuário não autenticado!";

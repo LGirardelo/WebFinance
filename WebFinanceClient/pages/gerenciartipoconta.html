@@ -14,15 +14,17 @@
 	           <div >
 		         <button ng-click="novoTipoConta()" type="button" class="btn btn-primary btn-sm">Novo tipo</button>	
                </div>        		         
-	           <form role="form">       	
+	           <form name="myForm" role="form">       	
 	            <div class="row">	        	              		          
 		          <div class="col-md-12">		      		     
 		              <div class="box-body">		                    			            
 			            <div class="form-group">
 			                <label for="input-descricao">Descrição</label>
-			                <input type="text" ng-model="tipoconta.tco_descricao" class="form-control" id="tipoContaDescricao" placeholder="Informe a descrição do tipo">
-			            </div>
-			          </div>		            		        
+			                <input name="inputDescricao" type="text" ng-model="tipoconta.tco_descricao" class="form-control" id="tipoContaDescricao" required placeholder="Informe a descrição do tipo">
+			                <span ng-show="myForm.inputDescricao.$error.required" class="glyphicon glyphicon-alert"></span>
+			                <span ng-show="myForm.inputDescricao.$error.required">Campo obrigatório.</span>
+			            </div>                    
+			          </div>    
 		          </div>
 		          <!-- /.col-->		           
 		        </div>
@@ -32,7 +34,7 @@
 		        <!-- /.box-body -->	        
 	        <div class="box-footer">
                 <button ng-click="novoTipoConta()" class="btn btn-default">Cancel</button>
-                <button ng-click="salvarTipoConta()" class="btn btn-success pull-right">Salvar</button>                           
+                <button ng-click="myForm.inputDescricao.$valid && salvarTipoConta()" class="btn btn-success pull-right animate-if">Salvar</button>                           
 	        </div>
 	      </div>
 	      <!-- /.box -->

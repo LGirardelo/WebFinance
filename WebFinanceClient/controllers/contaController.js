@@ -18,8 +18,45 @@ function contaController($scope, $http) {
  		tco_codigo: '',
  		tco_descricao: ''
 	}	
+
+	$scope.tiposMovimentacoes = [
+ 		{
+ 			"codigo": 1,
+ 			"descricao": "Entrada"
+ 		},
+ 		{
+			"codigo": 2,
+ 			"descricao": "Saída"
+ 		},
+ 		{
+ 			"codigo": 3,
+ 			"descricao": "Entrada/Saída"
+ 		}
+	];	
 		
 	$scope.contas = {};
+
+	$scope.tiposContas = {};
+
+	$scope.usuarios = {};
+	
+	$scope.carregarUsuarios = function(){
+		$http
+			.get(getServerAddress()+"/WebFinanceApiRest/public/usuarios")
+			.success(function(retorno){
+		       console.log(retorno);
+		       $scope.usuarios = retorno;			     
+			});
+	};
+
+	$scope.carregarTiposContas = function(){
+		$http
+			.get(getServerAddress()+"/WebFinanceApiRest/public/tiposContas")
+			.success(function(retorno){
+		       console.log(retorno);
+		       $scope.tiposContas = retorno;			     
+			});
+	};
 	
 	$scope.carregarContas = function(){		
 		$http
@@ -56,9 +93,9 @@ function contaController($scope, $http) {
  		$scope.conta.con_agcontabancaria  = '';
  		$scope.conta.con_nrcontabancaria  = '';
  		$scope.conta.con_ativa            = '';
- 		$scope.conta.usu_codigo           = 0;
+ 		$scope.conta.usu_codigo           = '';
  		$scope.conta.usu_nome             = '';
- 		$scope.conta.tco_codigo           = 0;
+ 		$scope.conta.tco_codigo           = '';
  		$scope.conta.tco_descricao        = '';
 	};
 
@@ -69,7 +106,7 @@ function contaController($scope, $http) {
 
 	$scope.salvarConta = function(){
 		$http.post(getServerAddress()+"/WebFinanceApiRest/public/conta/salvar", $scope.conta)
-		   	 .success(function(retorno){           
+		   	 .success(function(retorno){		   	              
                 if(retorno == 1){
                   $scope.limparConta(); 	 
                   $scope.carregarContas();
@@ -101,5 +138,28 @@ function contaController($scope, $http) {
 		});
 	};
 
-    $scope.carregarContas();    
+	$scope.limparCamposCtaBnk = function(){
+		$scope.conta.con_banco            = '';
+ 		$scope.conta.con_agcontabancaria  = '';
+ 		$scope.conta.con_nrcontabancaria  = ''; 		
+	};
+
+	$scope.limparUsuario = function(){
+		$scope.conta.usu_codigo = '';
+		$scope.conta.usu_nome   = '';
+	};
+
+	$scope.validarTipoConta = function(){
+		let flag = false;
+		for (let tipoConta of $scope.tiposContas.values()) {
+			if (tipoConta.tco_codigo == $scope.conta.tco_codigo) {
+				flag = true;
+			}
+		}		
+		if (!flag) {$scope.conta.tco_codigo = ''};
+	};
+    
+    $scope.carregarTiposContas();
+    $scope.carregarContas(); 
+    $scope.carregarUsuarios();   
 };

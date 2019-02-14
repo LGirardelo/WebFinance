@@ -92,5 +92,5 @@ function exibirOcultarElementoMensagem(msg, option, ehErro) {
 };
 
 function getServerAddress(){
-  return 'http://192.168.0.113:8080';
+  return 'http://localhost:8080';
 }

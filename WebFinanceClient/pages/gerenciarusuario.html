@@ -29,7 +29,7 @@
 			            <div class="form-group">
 			                <label>Grupo Familiar</label>
 			                <select id="select-grupofamiliar" ng-model="usuario.gfa_codigo" class="form-control select2" style="width: 100%;">
-			                  <option ng-selected="usuario.gfa_codigo" ng-repeat="grupo in gruposFamiliares" value="{{grupo.gfa_codigo}}">{{grupo.gfa_descricao}}</option>			                  
+			                  <option ng-repeat="grupo in gruposFamiliares" value="{{grupo.gfa_codigo}}" ng-selected="usuario.gfa_codigo == grupo.gfa_codigo">{{grupo.gfa_descricao}}</option>			                  
 			                </select>
 			            </div>		            		
 			            <div class="form-group">
@@ -87,7 +87,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table class="table table-bordered table-hover">
+              <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
                   <th>Nome</th>

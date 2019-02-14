@@ -3,7 +3,7 @@
         <div class="col-md-12">
 	      <div class="box box-primary">
 	        <div class="box-header with-border">
-	          <h3 class="box-title">Conta</h3>
+	          <h3 class="box-title">Conta - (criar/editar)</h3>
 	          <div class="box-tools pull-right">
 	            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 	            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -11,7 +11,7 @@
 	        </div>
 	        <!-- /.box-header -->
 	        <div class="box-body">
-	            <form name="myForm" role="form">       	
+	          <form name="myForm" role="form">       	
 	            <div class="row">	        	              		          
 		          <div class="col-md-4">		      		     
 		              <div class="box-body">		                    			            
@@ -21,25 +21,113 @@
 			            </div>                    
 			          </div>    
 		          </div>
-		          <div class="col-md-4">		      		     
+		          <div class="col-md-3">		      		     
 		              <div class="box-body">		                    			            
 			            <div class="form-group">
-			                <label for="input-descricao">Descrição</label>
-			                <input name="inputDescricao" type="text" ng-model="conta.con_descricao" class="form-control" id="tipoContaDescricao" required placeholder="Informe a descrição do tipo">
+			                <label for="input-descricao">Tipo Movimentação</label>			                
+			                <select id="select-tipomov" ng-model="conta.con_tipomovimentacao" class="form-control select2" style="width: 100%;">
+					                  <option ng-repeat="tipo in tiposMovimentacoes" value="{{tipo.codigo}}" ng-selected="tipo.codigo == conta.con_tipomovimentacao ">{{tipo.codigo}} - {{tipo.descricao}}</option>			                  
+					        </select>
 			            </div>                    
 			          </div>    
 		          </div>
-		          <div class="col-md-4">		      		     
-		              <div class="box-body">		                    			            
+		          <div class="col-md-3">		      		     
+		              <div class="box-body">		                    		              	
 			            <div class="form-group">
-			                <label for="input-descricao">Descrição</label>
-			                <input name="inputDescricao" type="text" ng-model="conta.con_descricao" class="form-control" id="tipoContaDescricao" required placeholder="Informe a descrição do tipo">
+			            	<label for="input-descricao">Usuário</label>			                
+					        
+					        <div class="row">
+			            		<div class="col-md-2">
+					                <span class="input-group-btn">
+					                    <button type="button" ng-click="limparUsuario()" class="btn btn-default btn-flat"><i class="fa fa-remove"></i></button>
+					                </span>
+					            </div>    
+					            <div class="col-md-10">
+					                <select id="select-tipoconta" ng-model="conta.usu_codigo" class="form-control select2" style="width: 100%;">
+							                  <option ng-repeat="user in usuarios" value="{{user.usu_codigo}}" ng-selected="user.usu_codigo == conta.usu_codigo ">{{user.usu_codigo}} - {{user.usu_nome}}</option>				                 							    
+							        </select>		
+							    </div>    
+					        </div>			        
+			            </div>                    
+			          </div>    
+		          </div>
+		          <div class="col-md-2">		      		     
+		              <div class="box-body">
+			            <div class="form-group">
+			            	<label for="input-descricao">Situação da Conta</label>
+							<div class="checkbox">
+		                       <label>
+		                         <input ng-model="conta.con_ativa" type="checkbox"> Ativa
+		                       </label>
+		                     </div>
 			            </div>                    
 			          </div>    
 		          </div>
 		          <!-- /.col-->		           
 		        </div>
 		          <!-- /.row -->
+	            <div class="row">	        	              		    
+		          <div class="col-md-4">		      		     
+		              <div class="box-body">		                    			            
+			            <div class="form-group">
+			                <label for="input-descricao">Tipo Conta</label>
+			                <div class="row">
+			                	<div class="col-md-3">
+				                	<input ng-change="validarTipoConta()" type="text" ng-model="conta.tco_codigo" class="form-control">
+				                </div>
+				                <div class="col-md-9">
+					                <select id="select-tipoconta" ng-model="conta.tco_codigo" class="form-control select2" style="width: 100%;">
+					                  <option ng-repeat="tpconta in tiposContas" value="{{tpconta.tco_codigo}}" ng-selected="limparCamposCtaBnk && tpconta.tco_codigo == conta.tco_codigo ">{{tpconta.tco_codigo}} - {{tpconta.tco_descricao}}</option>			                  
+					                </select>
+				                </div>
+			                </div>
+			            </div>              			                  
+			          </div>    
+		          </div>
+		          <div class="col-md-8">		      		     
+		              <div class="box-body">		                    			            
+			            <div class="form-group">
+			                <label for="input-descricao">Observação</label>
+			                <textarea name="inputObservação" ng-model="conta.con_observacao" class="form-control"  required placeholder="Informe uma observação da conta" rows="4"></textarea>
+			            </div>                    
+			          </div>    
+		          </div>		          
+		        </div>		        
+		        <div ng-if="conta.tco_codigo == 1" >		            
+		            <div class="row">	        	              		          
+			          <div class="box">
+		                <div class="box-header with-border">
+			               <h3 class="box-title">Dados Conta Bancária</h3>
+			            </div>
+			          </div>     
+			          <div class="col-md-4">
+			              <div class="box-body">		                    			            
+				            <div class="form-group">
+				                <label for="input-c">Banco</label>
+				                <input name="inputConta" type="text" ng-model="conta.con_banco" class="form-control" placeholder="Informe qual é o Banco">
+				            </div>                    
+				          </div>    		          	
+			          </div>			          
+			          <div class="col-md-4">		      		     
+			              <div class="box-body">		                    			            
+				            <div class="form-group">
+				                <label for="input-ag">Agência</label>
+				                <input name="inputAg" type="text" ng-model="conta.con_agcontabancaria" class="form-control" placeholder="Informe a agência da conta">
+				            </div>                    
+				          </div>    
+			          </div>
+			          <div class="col-md-4">		      		     
+			              <div class="box-body">		                    			            
+				            <div class="form-group">
+				                <label for="input-descricao">Nrº Conta</label>
+				                <input name="inputnr" type="text" ng-model="conta.con_nrcontabancaria" class="form-control" placeholder="Informe o número da conta bancária">
+				            </div>                    
+				          </div>    
+			          </div>			          
+			          <!-- /.col-->		           
+		            </div>
+		            <!-- /.row -->			            
+		        </div>    
 		      </form> 
 		    </div>			           
 		        <!-- /.box-body -->	        
@@ -66,7 +154,7 @@
               <div>
 		         <button ng-click="novaConta()" type="button" class="btn btn-primary btn-sm">Nova conta</button>	
               </div>        		         
-              <table class="table table-bordered table-hover">
+              <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
                   <th>Código</th>

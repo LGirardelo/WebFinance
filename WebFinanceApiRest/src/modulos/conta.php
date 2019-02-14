@@ -12,11 +12,11 @@ $app->get('/contas', function () {
                    c.con_observacao,       
                    c.con_tipomovimentacao,
                    case 
-                    when c.con_tipomovimentacao = 0 then 
+                    when c.con_tipomovimentacao = 1 then 
                       'Entrada'
-                    when c.con_tipomovimentacao = 1 then    
+                    when c.con_tipomovimentacao = 2 then    
                       'Saída'
-                    when c.con_tipomovimentacao = 2 then   
+                    when c.con_tipomovimentacao = 3 then   
                       'Entrada/Saída'
                    end con_movimentacao,    
                    c.con_banco,            
@@ -64,16 +64,19 @@ $app->post('/conta/salvar', function (Request $request, Response $response, arra
 
    		$qry = $this->db->prepare($sql);  		
 
-      $qry->bindParam(':con_descricao',        $dados->con_descricao       , PDO::PARAM_STR);
-      $qry->bindParam(':con_observacao',       $dados->con_observacao      , PDO::PARAM_STR);
-      $qry->bindParam(':con_tipomovimentacao', $dados->con_tipomovimentacao, PDO::PARAM_STR);
-      $qry->bindParam(':con_banco',            $dados->con_banco           , PDO::PARAM_STR);
-      $qry->bindParam(':con_agcontabancaria',  $dados->con_agcontabancaria , PDO::PARAM_STR);
-      $qry->bindParam(':con_nrcontabancaria',  $dados->con_nrcontabancaria , PDO::PARAM_STR);
-      $qry->bindParam(':con_ativa',            $dados->con_ativa           , PDO::PARAM_STR);
-      $qry->bindParam(':usu_codigo',           $dados->usu_codigo          , PDO::PARAM_STR);
-      $qry->bindParam(':tco_codigo',           $dados->tco_codigo          , PDO::PARAM_STR);
-      $qry->bindParam(':con_codigo',           $dados->con_codigo          , PDO::PARAM_STR);
+      $qry->bindValue(':con_descricao',        $dados->con_descricao       , PDO::PARAM_STR);
+      $qry->bindValue(':con_observacao',       $dados->con_observacao      , PDO::PARAM_STR);
+      $qry->bindValue(':con_tipomovimentacao', $dados->con_tipomovimentacao, PDO::PARAM_INT);
+      $qry->bindValue(':con_banco',            $dados->con_banco           , PDO::PARAM_STR);
+      $qry->bindValue(':con_agcontabancaria',  $dados->con_agcontabancaria , PDO::PARAM_STR);
+      $qry->bindValue(':con_nrcontabancaria',  $dados->con_nrcontabancaria , PDO::PARAM_STR);
+      $qry->bindValue(':con_ativa',            $dados->con_ativa           , PDO::PARAM_BOOL);
+      if ($dados->usu_codigo == '')
+        $qry->bindValue(':usu_codigo',           $dados->usu_codigo          , PDO::PARAM_NULL);
+      else
+        $qry->bindValue(':usu_codigo',           $dados->usu_codigo          , PDO::PARAM_INT);
+      $qry->bindValue(':tco_codigo',           $dados->tco_codigo          , PDO::PARAM_INT);
+      $qry->bindParam(':con_codigo',           $dados->con_codigo          , PDO::PARAM_INT);
      
     } else {
               
@@ -100,22 +103,23 @@ $app->post('/conta/salvar', function (Request $request, Response $response, arra
         
       $qry = $this->db->prepare($sql);  
 
-      $qry->bindParam(':con_descricao',        $dados->con_descricao       , PDO::PARAM_STR);
-      $qry->bindParam(':con_observacao',       $dados->con_observacao      , PDO::PARAM_STR);
-      $qry->bindParam(':con_tipomovimentacao', $dados->con_tipomovimentacao, PDO::PARAM_STR);
-      $qry->bindParam(':con_banco',            $dados->con_banco           , PDO::PARAM_STR);
-      $qry->bindParam(':con_agcontabancaria',  $dados->con_agcontabancaria , PDO::PARAM_STR);
-      $qry->bindParam(':con_nrcontabancaria',  $dados->con_nrcontabancaria , PDO::PARAM_STR);
-      $qry->bindParam(':con_ativa',            $dados->con_ativa           , PDO::PARAM_STR);
-      $qry->bindParam(':usu_codigo',           $dados->usu_codigo          , PDO::PARAM_STR);
-      $qry->bindParam(':tco_codigo',           $dados->tco_codigo          , PDO::PARAM_STR);
-      $qry->bindParam(':con_codigo',           $dados->con_codigo          , PDO::PARAM_STR);
+      $qry->bindValue(':con_descricao',        $dados->con_descricao       , PDO::PARAM_STR);
+      $qry->bindValue(':con_observacao',       $dados->con_observacao      , PDO::PARAM_STR);
+      $qry->bindValue(':con_tipomovimentacao', $dados->con_tipomovimentacao, PDO::PARAM_INT);
+      $qry->bindValue(':con_banco',            $dados->con_banco           , PDO::PARAM_STR);
+      $qry->bindValue(':con_agcontabancaria',  $dados->con_agcontabancaria , PDO::PARAM_STR);
+      $qry->bindValue(':con_nrcontabancaria',  $dados->con_nrcontabancaria , PDO::PARAM_STR);
+      $qry->bindValue(':con_ativa',            $dados->con_ativa           , PDO::PARAM_BOOL);
+      if ($dados->usu_codigo == '')
+        $qry->bindValue(':usu_codigo',           $dados->usu_codigo          , PDO::PARAM_NULL);
+      else
+        $qry->bindValue(':usu_codigo',           $dados->usu_codigo          , PDO::PARAM_INT);
+      $qry->bindValue(':tco_codigo',           $dados->tco_codigo          , PDO::PARAM_INT);      
     }
-    
+  
     if ($qry->execute()){
         echo 1;
     } else echo 0;                          
-
 });
 
 $app->post('/conta/excluir', function (Request $request, Response $response, array $args) {

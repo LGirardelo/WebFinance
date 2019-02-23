@@ -154,7 +154,7 @@
               <div>
 		         <button ng-click="novaConta()" type="button" class="btn btn-primary btn-sm">Nova conta</button>	
               </div>        		         
-              <table class="table table-bordered table-hover table-striped">
+              <table class="table table-bordered table-hover table-striped table-click">
                 <thead>
                 <tr>
                   <th>Código</th>
@@ -170,7 +170,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="x in contas">
+                <tr ng-repeat="x in contas" ng-dblclick="listarLancamentos(x)">
                   <td>{{x.con_codigo}}</td>
                   <td>{{x.con_descricao}}</td>
                   <td>{{x.con_movimentacao}}</td>
@@ -197,3 +197,54 @@
 	   </div>
     </div>	     
 </section> 
+
+<!--MODALS-->
+
+<button id="openModalLancamentos" hidden="true" data-toggle="modal" data-target="#ModalLancamentos">Open Modal</button>
+
+<div class="modal fade" id="ModalLancamentos">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Lançamentos - ({{lancamentos.dados[0].con_descricao}})</h4>
+          <h5 style="color:red;">Debitos = {{lancamentos.totaldebito}}</h5>
+          <h5 style="color:green;">Créditos = {{lancamentos.totalcredito}}</h5>	
+        
+      </div>
+      <div class="modal-body">        
+         <table class="table table-bordered table-hover table-striped">
+           <thead>
+           <tr>
+             <th>Código</th>
+             <th>Conta</th>
+             <th>Obs</th>             
+             <th>Tipo</th>
+             <th>Valor</th>
+             <th>Quitação</th>
+             <th>Usuário</th>                          
+           </tr>
+           </thead>
+           <tbody>
+           <tr ng-repeat="x in lancamentos.dados">
+             <td>{{x.lan_codigo}}</td>
+             <td>{{x.con_descricao}}</td>
+             <td>{{x.lan_observacao}}</td>             
+             <td>{{x.movimento}}</td>
+             <td>{{x.lan_valor}}</td>
+             <td>{{x.lan_dataquitacao}}</td>
+             <td>{{x.usu_codigo}} - {{x.usu_nome}}</td>
+           </tr>
+           </tbody>
+         </table>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

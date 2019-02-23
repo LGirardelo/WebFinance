@@ -77,27 +77,7 @@
             <a href="" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/emoji_fin.png" class="user-image" alt="User Image">
               <span class="hidden-xs"> <?php echo $_SESSION['name'] ?> </span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  <?php echo $_SESSION['name'] ?>
-                  <small>2019</small>
-                </p>
-              </li>            
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="" class="btn btn-default btn-flat">Perfil</a>
-                </div>
-                <div class="pull-right">
-                  <a href="/WebFinanceClient/pages/autentication/login.html" class="btn btn-default btn-flat">Sair</a>
-                </div>
-              </li>
-            </ul>
+            </a>            
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
@@ -158,34 +138,22 @@
           <ul class="treeview-menu">
             <li><a href="#/gergrupofamiliar"><i class="fa fa-circle-o"></i> Grupo Familiar</a></li>
             <li><a href="#/gerusuario"><i class="fa fa-circle-o"></i> Usuário</a></li>
-            <li><a href="#/gertipoconta"><i class="fa fa-circle-o"></i> Tipo de Conta</a></li>
-            <li><a href="#/gerconta"><i class="fa fa-circle-o"></i> Conta</a></li>
+            <li><a href="#/gertipoconta"><i class="fa fa-circle-o"></i> Tipo de Conta</a></li>            
           </ul>
+        </li>
+        <li class="treeview">
+            <li><a href="#/gerconta"><i class="fa fa-calendar"></i><span>Contas</span></a></li>          
         </li>        
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Lançamentos</span>        
-          </a>
+            <li><a href="#"><i class="fa fa-edit"></i> <span>Lançamentos</span></a></li>          
         </li>
-        <li>
+        <!--<li>
           <a href="pages/calendar.html">
             <i class="fa fa-calendar"></i> <span>Calendário</span>           
           </a>
-        </li>      
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Relatórios</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-          </ul>
-        </li>       
+        </li>-->      
         
-        <li><a href="#"><i class="fa fa-book"></i> <span>Histórico</span></a></li>
+        <!--<li><a href="#"><i class="fa fa-book"></i> <span>Histórico</span></a></li>-->
         <li class="header">Acesso rápido</li>
         <li><a href="/WebFinanceClient/pages/autentication/login.html"><i class="fa fa-circle-o text-red"></i> <span>Sair</span></a></li>
       </ul>
@@ -193,8 +161,17 @@
     <!-- /.sidebar -->
   </aside>
 
+  <div class="content transparente" style="position: fixed; z-index: 1000; margin-bottom: 10px;"> 
+    <div id="alert-type" class="alert alert-dismissible"  style="display: none;">
+        <button class="close" onClick="ocultarElementoMensagem()" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-check"></i> Atenção!</h4>
+        <div id="alert-msg-user"></div> 
+    </div>      
+  </div>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -202,20 +179,10 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#/"><i class="fa fa-home"></i> Home</a></li>        
-      </ol>
+      </ol>      
     </section>
     
-  
     <div ng-view></div>  
-
-    <div class="content" style="position: fixed; z-index: 199; margin-bottom: 10px;"> 
-        <div id="alert-type" class="alert alert-dismissible"  style="display: none;">
-              <button class="close" onClick="ocultarElementoMensagem()" aria-hidden="true">&times;</button>
-              <h4><i class="icon fa fa-check"></i> Atenção!</h4>
-              <div id="alert-msg-user"></div> 
-        </div>      
-    </div>
-
     <!-- /.content -->
   </div>
 
@@ -292,6 +259,7 @@
 
 <script type="text/javascript" src="assets/js/angular.min.js"></script>
 <script type="text/javascript" src="assets/js/angular-route.min.js"></script>
+<script type="text/javascript" src="dist/js/utils.js"></script>
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="controllers/usuarioController.js"></script>
 <script type="text/javascript" src="controllers/grupoFamiliarController.js"></script>

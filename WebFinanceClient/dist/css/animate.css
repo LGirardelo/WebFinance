@@ -1,3 +1,22 @@
 .animate{
 }
 
+.transparente{
+	opacity: 0.8;
+}
+
+table tr:hover td {
+  background-color: #E0FFFF;  
+}
+
+.table-click tr:hover td{
+  cursor: pointer;
+}
+
+.modal-content{
+	min-width: 900px;	
+}
+
+.modal {
+	margin-left: -300px;
+}

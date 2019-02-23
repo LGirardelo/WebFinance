@@ -34,6 +34,7 @@ require __DIR__ . '/../src/modulos/usuarios.php';
 require __DIR__ . '/../src/modulos/grupoFamiliar.php';
 require __DIR__ . '/../src/modulos/tipoConta.php';
 require __DIR__ . '/../src/modulos/conta.php';
+require __DIR__ . '/../src/modulos/lancamento.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';

@@ -39,35 +39,68 @@ function contaController($scope, $http) {
 	$scope.tiposContas = {};
 
 	$scope.usuarios = {};
+
+	$scope.lancamentos = [
+  		totaldebito = 0,
+  		totalcredito = 0,
+  		dados = {}
+	];
 	
-	$scope.carregarUsuarios = function(){
+	$scope.carregarUsuarios = function() {
 		$http
 			.get(getServerAddress()+"/WebFinanceApiRest/public/usuarios")
-			.success(function(retorno){
+			.success(function(retorno) {
 		       console.log(retorno);
 		       $scope.usuarios = retorno;			     
 			});
 	};
 
-	$scope.carregarTiposContas = function(){
+	$scope.carregarTiposContas = function() {
 		$http
 			.get(getServerAddress()+"/WebFinanceApiRest/public/tiposContas")
-			.success(function(retorno){
+			.success(function(retorno) {
 		       console.log(retorno);
 		       $scope.tiposContas = retorno;			     
 			});
 	};
 	
-	$scope.carregarContas = function(){		
+	$scope.carregarContas = function() {		
 		$http
 			.get(getServerAddress()+"/WebFinanceApiRest/public/contas")
-			.success(function(retorno){
+			.success(function(retorno) {
 		       console.log(retorno);
 		       $scope.contas = retorno;			     
 			});
 	};
 
-	$scope.editarConta = function($conta){
+	$scope.carregarLancamentos = function($conta){		
+		$scope.limparLancamentos();	
+		$http
+			.post(getServerAddress()+"/WebFinanceApiRest/public/lancamentos", $conta)
+			.success(function(retorno){
+		       
+		       console.log(retorno);
+		       
+		       $scope.lancamentos.dados = retorno;
+
+		       let lstDebitos = $scope.lancamentos.dados.filter(function(item){ 
+                                    return (item.movimento == 'D')
+                                });
+
+		       let lstCreditos = $scope.lancamentos.dados.filter(function(item){ 
+                                    return (item.movimento == 'C')
+                                });
+		       if (!isEmpty(lstDebitos)) {
+		         $scope.lancamentos.totaldebito = lstDebitos[0].total;			     
+		       }
+
+		       if (!isEmpty(lstCreditos)) {		       
+		         $scope.lancamentos.totalcredito = lstCreditos[0].total;
+		       }
+			});
+	};
+
+	$scope.editarConta = function($conta) {
  		$scope.conta.con_codigo           = $conta.con_codigo; 		 		
  		$scope.conta.con_descricao        = $conta.con_descricao;
  		$scope.conta.con_observacao       = $conta.con_observacao;
@@ -84,7 +117,7 @@ function contaController($scope, $http) {
  		document.getElementById("nova-conta").style.display = 'block';
 	};
 
-	$scope.limparConta = function(){
+	$scope.limparConta = function() {
  		$scope.conta.con_codigo           = 0;
  		$scope.conta.con_descricao        = '';
  		$scope.conta.con_observacao       = '';
@@ -99,15 +132,20 @@ function contaController($scope, $http) {
  		$scope.conta.tco_descricao        = '';
 	};
 
-	$scope.novaConta = function(){
+ 	$scope.limparLancamentos = function() {
+        $scope.lancamentos.totaldebito = 0;
+	    $scope.lancamentos.totalcredito = 0;
+	};
+
+	$scope.novaConta = function() {
 		$scope.limparConta();
 		document.getElementById("nova-conta").style.display = 'block';
 	};
 
-	$scope.salvarConta = function(){
+	$scope.salvarConta = function() {
 		$http.post(getServerAddress()+"/WebFinanceApiRest/public/conta/salvar", $scope.conta)
-		   	 .success(function(retorno){		   	              
-                if(retorno == 1){
+		   	 .success(function(retorno) {		   	              
+                if(retorno == 1) {
                   $scope.limparConta(); 	 
                   $scope.carregarContas();
                   exibirOcultarElementoMensagem('Operação executada com sucesso!', true, false);
@@ -124,8 +162,8 @@ function contaController($scope, $http) {
 	$scope.excluirConta = function($conta){
 		$http
 		 .post(getServerAddress()+"/WebFinanceApiRest/public/conta/excluir", $conta)
-		 .success(function(retorno){           
-            if(retorno == 1){
+		 .success(function(retorno) {           
+            if(retorno == 1) {
               $scope.limparConta(); 	 
               $scope.carregarContas();
               exibirOcultarElementoMensagem('Operação executada com sucesso!', true, false);
@@ -138,18 +176,18 @@ function contaController($scope, $http) {
 		});
 	};
 
-	$scope.limparCamposCtaBnk = function(){
+	$scope.limparCamposCtaBnk = function() {
 		$scope.conta.con_banco            = '';
  		$scope.conta.con_agcontabancaria  = '';
  		$scope.conta.con_nrcontabancaria  = ''; 		
 	};
 
-	$scope.limparUsuario = function(){
+	$scope.limparUsuario = function() {
 		$scope.conta.usu_codigo = '';
 		$scope.conta.usu_nome   = '';
 	};
 
-	$scope.validarTipoConta = function(){
+	$scope.validarTipoConta = function() {
 		let flag = false;
 		for (let tipoConta of $scope.tiposContas.values()) {
 			if (tipoConta.tco_codigo == $scope.conta.tco_codigo) {
@@ -157,6 +195,11 @@ function contaController($scope, $http) {
 			}
 		}		
 		if (!flag) {$scope.conta.tco_codigo = ''};
+	};
+
+	$scope.listarLancamentos = function($conta) { 	     	
+	    $scope.carregarLancamentos($conta);  	     	    
+ 	    document.getElementById("openModalLancamentos").click();	     	    
 	};
     
     $scope.carregarTiposContas();

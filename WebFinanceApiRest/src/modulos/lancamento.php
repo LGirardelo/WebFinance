@@ -9,7 +9,7 @@ $app->post('/lancamentos', function (Request $request, Response $response, array
 
     $dados = $request->getBody();
     $dados = json_decode($dados);
-
+    
     $sql = "    select l.lan_codigo,
                        c.con_codigo,
                        case 
@@ -40,14 +40,14 @@ $app->post('/lancamentos', function (Request $request, Response $response, array
                           from lancamento l
                           join conta c on c.con_codigo = l.con_codigodebito 
                           where l.con_codigodebito = :con_codigo 
-                            and l.lan_dataquitacao = current_date 
+                            and l.lan_dataquitacao between :dataini and :datafim 
                        ) as total    
                   from lancamento l 
                   join conta c 
                     on c.con_codigo = l.con_codigodebito 
                   left join usuarios u on l.usu_codigo = u.usu_codigo
                  where l.con_codigodebito = :con_codigo 
-                   and l.lan_dataquitacao = current_date  
+                   and l.lan_dataquitacao between :dataini and :datafim
 
                 union 
 
@@ -81,18 +81,20 @@ $app->post('/lancamentos', function (Request $request, Response $response, array
                           from lancamento l
                           join conta c on c.con_codigo = l.con_codigocredito
                           where l.con_codigocredito = :con_codigo 
-                            and l.lan_dataquitacao = current_date 
+                            and l.lan_dataquitacao between :dataini and :datafim
                        ) as total          
                   from lancamento l 
                   join conta c 
                     on c.con_codigo = l.con_codigocredito
                   left join usuarios u on l.usu_codigo = u.usu_codigo
                  where l.con_codigocredito = :con_codigo 
-                   and l.lan_dataquitacao = current_date ";        
+                   and l.lan_dataquitacao between :dataini and :datafim ";
     
     $qry = $this->db->prepare($sql);   
     
     $qry->bindParam(':con_codigo', $dados->con_codigo, PDO::PARAM_STR);    
+    $qry->bindParam(':dataini', $dados->dataini, PDO::PARAM_STR);    
+    $qry->bindParam(':datafim', $dados->datafim, PDO::PARAM_STR);    
     
     $qry->execute();
     
@@ -101,9 +103,29 @@ $app->post('/lancamentos', function (Request $request, Response $response, array
     echo json_encode($dados);
 });
 
-
-
 /*
+SQL SALDO
+
+select 
+       c.con_codigo, 
+       c.con_descricao, 
+       credito.totalcredito, 
+       debito.totaldebito,
+       credito.totalcredito - debito.totaldebito  as  saldo  
+ from conta c 
+
+ join (select sum(l.lan_valor) as TOTALCREDITO,
+               con_codigocredito as con_codigo
+          from lancamento l          
+   group by con_codigocredito 
+ ) credito on credito.con_codigo = c.con_codigo
+
+ join (select sum(l.lan_valor) as TOTALDEBITO,
+               con_codigodebito as con_codigo
+          from lancamento l          
+   group by con_codigodebito 
+ ) debito on debito.con_codigo = c.con_codigo 
+
 
 $app->get('/lancamentos', function () {
     

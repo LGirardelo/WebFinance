@@ -16,7 +16,7 @@
 		          <div class="col-md-4">		      		     
 		              <div class="box-body">		                    			            
 			            <div class="form-group">
-			                <label for="input-descricao">Descrição</label>
+			                <label for="input-descricao">*Descrição</label>
 			                <input name="inputDescricao" type="text" ng-model="conta.con_descricao" class="form-control" id="tipoContaDescricao" required placeholder="Informe a descrição do tipo">
 			            </div>                    
 			          </div>    
@@ -24,7 +24,7 @@
 		          <div class="col-md-3">		      		     
 		              <div class="box-body">		                    			            
 			            <div class="form-group">
-			                <label for="input-descricao">Tipo Movimentação</label>			                
+			                <label for="input-descricao">*Tipo Movimentação</label>			                
 			                <select id="select-tipomov" ng-model="conta.con_tipomovimentacao" class="form-control select2" style="width: 100%;">
 					                  <option ng-repeat="tipo in tiposMovimentacoes" value="{{tipo.codigo}}" ng-selected="tipo.codigo == conta.con_tipomovimentacao ">{{tipo.codigo}} - {{tipo.descricao}}</option>			                  
 					        </select>
@@ -54,7 +54,7 @@
 		          <div class="col-md-2">		      		     
 		              <div class="box-body">
 			            <div class="form-group">
-			            	<label for="input-descricao">Situação da Conta</label>
+			            	<label for="input-descricao">*Situação da Conta</label>
 							<div class="checkbox">
 		                       <label>
 		                         <input ng-model="conta.con_ativa" type="checkbox"> Ativa
@@ -70,7 +70,7 @@
 		          <div class="col-md-4">		      		     
 		              <div class="box-body">		                    			            
 			            <div class="form-group">
-			                <label for="input-descricao">Tipo Conta</label>
+			                <label for="input-descricao">*Tipo Conta</label>
 			                <div class="row">
 			                	<div class="col-md-3">
 				                	<input ng-change="validarTipoConta()" type="text" ng-model="conta.tco_codigo" class="form-control">
@@ -208,12 +208,41 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Lançamentos - ({{lancamentos.dados[0].con_descricao}})</h4>
-          <h5 style="color:red;">Debitos = {{lancamentos.totaldebito}}</h5>
-          <h5 style="color:green;">Créditos = {{lancamentos.totalcredito}}</h5>	
-        
+          <h4 class="modal-title">Lançamentos</h4>          
       </div>
-      <div class="modal-body">        
+      <div class="modal-body box box-primary">     
+         <div class="row">
+         	<div class="col-md-4">
+         	  <!--<h2>{{lancamentos.dados[0].con_descricao}}</h2> -->
+         	  <h2>{{contaLancamento.con_descricao}}</h2>
+            </div>        
+         	<div class="col-md-4">
+              <h5 >Debitos = R$ {{lancamentos.totaldebito}}</h5>
+              <h5 >Créditos = R$ {{lancamentos.totalcredito}}</h5>	
+              <h5 ><strong>Saldo Total = R$ {{lancamentos.total}}</strong></h5>	
+         	</div>         	
+         	<div class="col-md-4">
+           	  <!-- Date range -->
+              <div class="form-group">
+                <label>Período:</label>
+                <div class="row">
+                  	<div class="col-md-10">
+		                <div class="input-group">
+		                   <div class="input-group-addon">
+		                      <i class="fa fa-calendar"></i>
+		                   </div>
+		                   <input type="text" class="form-control pull-right" id="reservation">                  
+		                </div>
+					</div>
+					<div class="col-md-2">
+				        <button class="btn btn-primary pull-right" ng-click="atualizarLancamento()"><i class="fa fa-search"></i></button>
+					</div>
+	            </div>   
+                <!-- /.input group -->
+              </div>
+            </div>         	
+         </div> 
+         <hr>
          <table class="table table-bordered table-hover table-striped">
            <thead>
            <tr>
@@ -248,3 +277,17 @@
   <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+$(function () {
+    
+  $('#reservation').daterangepicker({
+    locale: {
+      format: 'DD/MM/YYYY'
+    }
+  })
+
+  $('#datepicker').datepicker({
+      autoclose: true
+  })
+})
+</script>

@@ -75,7 +75,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/emoji_fin.png" class="user-image" alt="User Image">
+              <img src="dist/img/porquinho.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs"> <?php echo $_SESSION['name'] ?> </span>
             </a>            
           </li>
@@ -94,7 +94,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/emoji_fin.png" class="img-circle" alt="User Image">
+          <img src="dist/img/porquinho.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $_SESSION['name'] ?></p>
@@ -115,7 +115,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Opções</li>
-        <li class="active treeview">
+      <!--  <li class="active treeview">
           <a href="/dashmensal">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
@@ -126,7 +126,7 @@
             <li class="active"><a href="#/dashmensal"><i class="fa fa-circle-o"></i> Gastos Mensais </a></li>
             
           </ul>
-        </li>
+        </li> -->
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>

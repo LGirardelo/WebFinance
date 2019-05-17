@@ -2,7 +2,14 @@
 app.controller('contaController', contaController);
 
 function contaController($scope, $http) {
-	    
+	
+	$scope.contaLancamento = {
+		con_codigo: 0,
+		con_descricao: '',
+		dataini: '',
+		datafim: ''
+	} 
+
 	$scope.conta = {
  		con_codigo: 0,
  		con_descricao: '',
@@ -41,11 +48,17 @@ function contaController($scope, $http) {
 	$scope.usuarios = {};
 
 	$scope.lancamentos = [
-  		totaldebito = 0,
-  		totalcredito = 0,
+  		totaldebito = 0.00,
+  		totalcredito = 0.00,
+  		total = 0.00,
   		dados = {}
 	];
 	
+    $scope.calcularTotalLcto = function(){
+    	$scope.lancamentos.total = (parseFloat($scope.lancamentos.totalcredito) - 
+    	  parseFloat($scope.lancamentos.totaldebito)).toFixed(2);
+    };
+
 	$scope.carregarUsuarios = function() {
 		$http
 			.get(getServerAddress()+"/WebFinanceApiRest/public/usuarios")
@@ -73,10 +86,10 @@ function contaController($scope, $http) {
 			});
 	};
 
-	$scope.carregarLancamentos = function($conta){		
+	$scope.carregarLancamentos = function($contaLancamento){		
 		$scope.limparLancamentos();	
 		$http
-			.post(getServerAddress()+"/WebFinanceApiRest/public/lancamentos", $conta)
+			.post(getServerAddress()+"/WebFinanceApiRest/public/lancamentos", $contaLancamento)
 			.success(function(retorno){
 		       
 		       console.log(retorno);
@@ -97,6 +110,8 @@ function contaController($scope, $http) {
 		       if (!isEmpty(lstCreditos)) {		       
 		         $scope.lancamentos.totalcredito = lstCreditos[0].total;
 		       }
+
+		       $scope.calcularTotalLcto();
 			});
 	};
 
@@ -197,12 +212,28 @@ function contaController($scope, $http) {
 		if (!flag) {$scope.conta.tco_codigo = ''};
 	};
 
-	$scope.listarLancamentos = function($conta) { 	     	
-	    $scope.carregarLancamentos($conta);  	     	    
+	$scope.carregarDatasContaLancamento = function(){
+		var $dateRange = document.getElementById("reservation").value;
+        var $arrayDateRange = $dateRange.split(' - ', 2);
+        $scope.contaLancamento.dataini    = $arrayDateRange[0]; 
+        $scope.contaLancamento.datafim    = $arrayDateRange[1]; 
+	}
+
+	$scope.listarLancamentos = function($conta) { 	  
+	    $scope.contaLancamento.con_codigo    = $conta.con_codigo;	   
+	    $scope.contaLancamento.con_descricao = $conta.con_descricao;	   
+	    $scope.carregarDatasContaLancamento();	     	     	     	 	 	    
+	    $scope.carregarLancamentos($scope.contaLancamento);  	     	    
  	    document.getElementById("openModalLancamentos").click();	     	    
 	};
+
+	$scope.atualizarLancamento = function(){
+		$scope.carregarDatasContaLancamento();	     	     	     	 	 	    	     	     	     	 	 	    
+		$scope.carregarLancamentos($scope.contaLancamento);
+	}
     
     $scope.carregarTiposContas();
-    $scope.carregarContas(); 
     $scope.carregarUsuarios();   
+    $scope.carregarContas();     
 };
+	
